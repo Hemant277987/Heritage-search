@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Evaluation · Heritage Search{% endblock %}
+
+{% block hero %}
+<section class="hero compact">
+  <div class="wrap">
+    <h1>Evaluation and limitations</h1>
+    <p class="sub">Validation evidence for the models and the search ranking, plus an honest look at where it fails.</p>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+{% if not r %}
+<div class="card">No results yet. Run <code>python run_experiments.py</code> to generate <code>outputs/results.json</code>.</div>
+{% else %}
+{% set c = r.classification %}{% set h = c.holdout %}{% set ret = r.retrieval %}
+{% set test_row = ret.table|selectattr('config','equalto',ret.selected_on_dev)|selectattr('split','equalto','test')|first %}
+
+<div class="tiles">
+  <div class="card tile"><div class="num">{{ r.cleaning.rows_clean }}</div><div class="lab">clean documents</div></div>
+  <div class="card tile"><div class="num">{{ '%.2f' % c.cv_table[0].cv_macro_f1 }}</div><div class="lab">best CV macro-F1 ({{ c.cv_table[0].model }})</div></div>
+  <div class="card tile"><div class="num">{{ '%.2f' % h.accuracy }}</div><div class="lab">hold-out accuracy ({{ h.n_test }} docs)</div></div>
+  <div class="card tile"><div class="num">{{ '%.2f' % test_row['P@5'] }}</div><div class="lab">search P@5 on test queries</div></div>
+</div>
+
+<h2 class="section">1 · Data preparation</h2>
+<table>
+  <tr><th>Step</th><th style="text-align:right">Rows</th></tr>
+  <tr><td>Raw rows</td><td class="num">{{ r.cleaning.rows_raw }}</td></tr>
+  <tr><td>Dropped: missing text (cannot be imputed)</td><td class="num">{{ r.cleaning.dropped_missing_text_ids|length }}</td></tr>
+  <tr><td>Region / period missing, filled with “Unknown”</td><td class="num">{{ r.cleaning.missing_region_filled_unknown_ids|length }} / {{ r.cleaning.missing_period_filled_unknown_ids|length }}</td></tr>
+  <tr><td>HTML markup cleaned</td><td class="num">{{ r.cleaning.rows_with_html_markup_cleaned|length }}</td></tr>
+  <tr><td><b>Clean documents</b></td><td class="num"><b>{{ r.cleaning.rows_clean }}</b></td></tr>
+</table>
+<p class="muted">Model input is the cleaned text only. Title, region, period, id and the category target are never features, and every vectoriser is fitted inside the training folds.</p>
+
+<h2 class="section">2 · Classifier comparison</h2>
+<p class="muted" style="margin-top:-6px">Repeated stratified CV (4 folds × 5 repeats) on the training split, macro-F1.</p>
+<table><tr><th>Model</th><th>N-grams</th><th style="text-align:right">Macro-F1</th><th style="text-align:right">Accuracy</th></tr>
+{% for m in c.cv_table %}<tr class="{{ 'best' if loop.first }}"><td>{{ m.model }}</td><td>{{ m.ngram }}</td>
+<td class="num">{{ '%.3f' % m.cv_macro_f1 }} ± {{ '%.3f' % m.cv_macro_f1_sd }}</td>
+<td class="num">{{ '%.3f' % m.cv_accuracy }}</td></tr>{% endfor %}</table>
+<p>Preferred: <strong>{{ h.model }}</strong> (n-grams {{ h.ngram }}). Hold-out test ({{ h.n_test }} documents, used once): accuracy {{ '%.2f' % h.accuracy }}, macro-F1 {{ '%.2f' % h.macro_f1 }}. With so few test documents this estimate is very uncertain.</p>
+
+<h2 class="section">3 · K-Means topic groups</h2>
+<div class="tiles" style="grid-template-columns:repeat(3,1fr)">
+  <div class="card tile"><div class="num">{{ '%.2f' % r.clustering.ARI }}</div><div class="lab">ARI</div></div>
+  <div class="card tile"><div class="num">{{ '%.2f' % r.clustering.NMI }}</div><div class="lab">NMI</div></div>
+  <div class="card tile"><div class="num">{{ '%.2f' % r.clustering.purity }}</div><div class="lab">purity (k = {{ r.clustering.k_used }})</div></div>
+</div>
+<p class="muted">Some clusters follow shared descriptive vocabulary rather than the curated categories.</p>
+
+<h2 class="section">4 · Search ranking quality</h2>
+<p class="muted" style="margin-top:-6px">{{ r.n_queries.dev }} dev / {{ r.n_queries.test }} test queries. Configuration chosen on dev only: <code>{{ ret.selected_on_dev }}</code></p>
+<table><tr><th>Split</th><th>Method</th><th style="text-align:right">P@5</th><th style="text-align:right">MRR</th><th style="text-align:right">nDCG@10</th></tr>
+{% for row in ret.table if row.config == ret.selected_on_dev %}
+<tr class="best"><td>{{ row.split }}</td><td>TF-IDF + cosine</td><td class="num">{{ '%.2f' % row['P@5'] }}</td><td class="num">{{ '%.2f' % row.MRR }}</td><td class="num">{{ '%.2f' % row['nDCG@10'] }}</td></tr>{% endfor %}
+{% for b in ret.keyword_overlap_baseline %}
+<tr><td>{{ b.split }}</td><td>Keyword-overlap baseline</td><td class="num">{{ '%.2f' % b['P@5'] }}</td><td class="num">{{ '%.2f' % b.MRR }}</td><td class="num">{{ '%.2f' % b['nDCG@10'] }}</td></tr>{% endfor %}
+</table>
+
+<h2 class="section">5 · Where search fails</h2>
+<div class="grid2">
+{% for f in ret.failures %}
+<div class="card fail">
+  <div class="q">“{{ f.query }}”</div>
+  <div class="meta">P@5 {{ '%.1f' % f['P@5'] }} · expected {{ f.relevant|join(' / ') }}</div>
+  {% if f.oov_terms %}<div class="meta" style="margin-top:6px">Not in vocabulary: <b>{{ f.oov_terms|join(', ') }}</b></div>{% endif %}
+  {% for w in f.wrong_hits[:2] %}<div class="meta" style="margin-top:4px">↳ {{ w.title }} ({{ w.category }}) matched on {{ w.matched_terms[:3]|join(', ') }}</div>{% endfor %}
+</div>
+{% endfor %}
+</div>
+
+<h2 class="section">Limitations</h2>
+<div class="card">
+<ul class="lim">
+  <li><strong>Small, curated corpus</strong> (about 70 short texts, 6 categories). Scores are indicative, not generalisable.</li>
+  <li><strong>Lexical matching only.</strong> Synonyms and paraphrases (“birdwatching” vs “migratory birds”) are missed, and generic words (community, royal, folk) pull in wrong categories.</li>
+  <li><strong>Relevance is category-level.</strong> A “sweets” query returning Bengali Sweets (Cuisine) is counted wrong for a Festivals judgement, so P@5 understates real usefulness in overlapping topics.</li>
+  <li><strong>Queries were written by the project author</strong>, who knew the corpus, which flatters results. Independent users would score lower.</li>
+  <li><strong>LLM summaries</strong> (optional) are constrained to retrieved passages but can still misstate them; the extractive fallback only reuses original sentences.</li>
+</ul>
+</div>
+{% endif %}
+{% endblock %}

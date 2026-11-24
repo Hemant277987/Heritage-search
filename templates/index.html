@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block hero %}
+<section class="hero{{ ' compact' if searched }}">
+  <div class="wrap">
+    <h1>{{ 'Explore India’s living heritage' if not searched else 'Heritage Search' }}</h1>
+    {% if not searched %}<p class="sub">Search monuments, festivals, crafts, music, food and landscapes. Every result shows which words matched and why it ranked where it did.</p>{% endif %}
+    <form id="f" method="get" action="/">
+      <div class="searchbox">
+        <input type="text" name="q" value="{{ data.query }}" placeholder="Try: handwoven silk with gold thread" aria-label="Search" autofocus>
+        <button type="submit">Search</button>
+      </div>
+      <div class="pills" role="radiogroup" aria-label="Category">
+        <span><input type="radio" id="c_all" name="category" value="" {{ 'checked' if not category }}><label for="c_all">All</label></span>
+        {% for c in categories %}
+        <span><input type="radio" id="c_{{ loop.index }}" name="category" value="{{ c }}" {{ 'checked' if c == category }}><label for="c_{{ loop.index }}">{{ cat_icon(c) }} {{ c }}</label></span>
+        {% endfor %}
+      </div>
+      <div class="options">
+        <span>Show
+          <select name="k" aria-label="Number of results">
+            {% for n in [3,5,10] %}<option value="{{ n }}" {{ 'selected' if n == k }}>top {{ n }}</option>{% endfor %}
+          </select>
+        </span>
+        <label><input type="checkbox" name="summary" value="1" {{ 'checked' if want_summary }}> Add a summary{% if not llm %} (key sentences){% else %} (AI){% endif %}</label>
+      </div>
+    </form>
+  </div>
+</section>
+<script>
+  document.querySelectorAll('.pills input').forEach(function (r) {
+    r.addEventListener('change', function () { if (document.querySelector('input[name=q]').value.trim()) document.getElementById('f').submit(); });
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+{% if searched %}
+  {% for w in data.warnings %}<div class="warn">⚠️ {{ w }}</div>{% endfor %}
+
+  {% if data.summary %}
+  <div class="summary">
+    <div class="tag">{{ '✨ AI summary of the results below' if data.summary.kind == 'llm' else 'Key sentences from the top results' }}</div>
+    <p>{{ data.summary.text }}</p>
+  </div>
+  {% endif %}
+
+  {% if data.results %}
+  <div class="results-head">
+    <h2>{{ data.results|length }} result{{ 's' if data.results|length != 1 }} for “{{ data.query }}”</h2>
+    <span class="meta">ranked by cosine similarity</span>
+  </div>
+  {% endif %}
+
+  {% for r in data.results %}
+  <article class="card result" style="--catc: {{ cat_color(r.category) }}; --i: {{ loop.index0 }}">
+    <div class="rank" aria-label="Rank {{ r.rank }}">{{ r.rank }}</div>
+    <div>
+      <div class="badge">{{ cat_icon(r.category) }} {{ r.category }}</div>
+      <h3>{{ r.title }}</h3>
+      <div class="meta">📍 {{ r.region }} &nbsp;·&nbsp; 🕰 {{ r.period }}</div>
+      <div class="score" title="cosine similarity {{ '%.3f' % r.score }}">
+        <div class="track"><span style="width: {{ [r.score * 100 / (data.results[0].score or 1), 100]|min }}%"></span></div>
+        <b>match {{ '%.2f' % r.score }}</b>
+      </div>
+      <div class="meta" style="margin-bottom:2px">Why it matched:</div>
+      <div>{% for e in r.evidence %}<span class="chip">{{ e.term }} <small>{{ '%d' % (e.share * 100) }}%</small></span>{% endfor %}</div>
+      <p class="snippet">{{ r.snippet }}</p>
+      <details><summary>Read full description</summary><p>{{ r.text }}</p></details>
+      <div class="group">Topic group {{ r.cluster + 1 }} · {{ r.cluster_terms|join(', ') }}</div>
+    </div>
+  </article>
+  {% endfor %}
+{% else %}
+  <div class="intro">
+    <div class="card"><div class="big">{{ clusters|length }}</div><div class="meta" style="margin-top:6px">topic groups discovered automatically with K-Means</div></div>
+    <div class="card"><div class="big">{{ categories|length }}</div><div class="meta" style="margin-top:6px">heritage categories you can filter by</div></div>
+    <div class="card"><div class="big">100%</div><div class="meta" style="margin-top:6px">of results come with their matching terms as evidence</div></div>
+  </div>
+
+  <h2 class="section" style="margin-top:6px">Try a search</h2>
+  <div class="tryrow">
+    <a href="/?q=handwoven+silk+with+gold+thread">🧵 handwoven silk with gold thread</a>
+    <a href="/?q=festival+of+lights">🪔 festival of lights</a>
+    <a href="/?q=mangrove+forest+tigers">🌿 mangrove forest tigers</a>
+    <a href="/?q=classical+dance+hand+gestures">🎶 classical dance hand gestures</a>
+    <a href="/?q=slow+cooked+rice+and+meat">🍛 slow cooked rice and meat</a>
+    <a href="/?q=red+sandstone+fort">🏛️ red sandstone fort</a>
+  </div>
+
+  <h2 class="section">Topic groups found by K-Means</h2>
+  <p class="muted" style="margin-top:-6px">No labels were used. Each group is described by its most characteristic words.</p>
+  <div class="topics">
+    {% for c, terms in clusters.items() %}
+    <div class="card topic"><h3>Group {{ c + 1 }}</h3><div>{% for t in terms[:6] %}<span class="chip">{{ t }}</span>{% endfor %}</div></div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}
