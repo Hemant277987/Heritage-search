@@ -1,0 +1,1697 @@
+{
+  "cleaning": {
+    "rows_raw": 70,
+    "rows_with_html_markup_cleaned": [
+      "69"
+    ],
+    "dropped_missing_text_ids": [
+      "66"
+    ],
+    "missing_region_filled_unknown_ids": [
+      "68"
+    ],
+    "missing_period_filled_unknown_ids": [
+      "70"
+    ],
+    "dropped_missing_target_ids": [],
+    "dropped_duplicate_rows": 0,
+    "dropped_too_short_ids": [],
+    "rows_clean": 69,
+    "class_counts": {
+      "Monuments & Architecture": 13,
+      "Festivals & Rituals": 13,
+      "Crafts & Textiles": 12,
+      "Music & Dance": 12,
+      "Cuisine & Foodways": 10,
+      "Natural & Sacred Landscapes": 9
+    },
+    "tokens_per_doc": {
+      "min": 16,
+      "median": 20.0,
+      "max": 25
+    }
+  },
+  "leakage_audit": {
+    "features_used": [
+      "text_clean"
+    ],
+    "excluded_from_features": [
+      "doc_id",
+      "title",
+      "region",
+      "period",
+      "category"
+    ],
+    "label_word_overlap": {
+      "Monuments & Architecture": {
+        "docs_containing_label_word": 1,
+        "docs": 13
+      },
+      "Festivals & Rituals": {
+        "docs_containing_label_word": 6,
+        "docs": 13
+      },
+      "Crafts & Textiles": {
+        "docs_containing_label_word": 1,
+        "docs": 12
+      },
+      "Music & Dance": {
+        "docs_containing_label_word": 10,
+        "docs": 12
+      },
+      "Cuisine & Foodways": {
+        "docs_containing_label_word": 1,
+        "docs": 10
+      },
+      "Natural & Sacred Landscapes": {
+        "docs_containing_label_word": 0,
+        "docs": 9
+      }
+    }
+  },
+  "classification": {
+    "cv_table": [
+      {
+        "model": "Linear SVM",
+        "ngram": "1-1",
+        "cv_accuracy": 0.9019,
+        "cv_accuracy_sd": 0.0797,
+        "cv_macro_f1": 0.8956,
+        "cv_macro_f1_sd": 0.0857
+      },
+      {
+        "model": "Complement NB",
+        "ngram": "1-1",
+        "cv_accuracy": 0.9016,
+        "cv_accuracy_sd": 0.0729,
+        "cv_macro_f1": 0.8954,
+        "cv_macro_f1_sd": 0.0832
+      },
+      {
+        "model": "Multinomial NB",
+        "ngram": "1-1",
+        "cv_accuracy": 0.8986,
+        "cv_accuracy_sd": 0.0693,
+        "cv_macro_f1": 0.8884,
+        "cv_macro_f1_sd": 0.0831
+      },
+      {
+        "model": "Linear SVM",
+        "ngram": "1-2",
+        "cv_accuracy": 0.8951,
+        "cv_accuracy_sd": 0.0798,
+        "cv_macro_f1": 0.8882,
+        "cv_macro_f1_sd": 0.0883
+      },
+      {
+        "model": "Complement NB",
+        "ngram": "1-2",
+        "cv_accuracy": 0.8871,
+        "cv_accuracy_sd": 0.0707,
+        "cv_macro_f1": 0.8786,
+        "cv_macro_f1_sd": 0.0826
+      },
+      {
+        "model": "Logistic Regression",
+        "ngram": "1-1",
+        "cv_accuracy": 0.8876,
+        "cv_accuracy_sd": 0.0862,
+        "cv_macro_f1": 0.877,
+        "cv_macro_f1_sd": 0.0943
+      },
+      {
+        "model": "Multinomial NB",
+        "ngram": "1-2",
+        "cv_accuracy": 0.8841,
+        "cv_accuracy_sd": 0.0764,
+        "cv_macro_f1": 0.8705,
+        "cv_macro_f1_sd": 0.095
+      },
+      {
+        "model": "Logistic Regression",
+        "ngram": "1-2",
+        "cv_accuracy": 0.8659,
+        "cv_accuracy_sd": 0.0854,
+        "cv_macro_f1": 0.8518,
+        "cv_macro_f1_sd": 0.0991
+      },
+      {
+        "model": "kNN (cosine, k=5)",
+        "ngram": "1-2",
+        "cv_accuracy": 0.8217,
+        "cv_accuracy_sd": 0.0847,
+        "cv_macro_f1": 0.8019,
+        "cv_macro_f1_sd": 0.0998
+      },
+      {
+        "model": "kNN (cosine, k=5)",
+        "ngram": "1-1",
+        "cv_accuracy": 0.8146,
+        "cv_accuracy_sd": 0.0844,
+        "cv_macro_f1": 0.796,
+        "cv_macro_f1_sd": 0.1006
+      },
+      {
+        "model": "Baseline (most frequent)",
+        "ngram": "1-1",
+        "cv_accuracy": 0.1456,
+        "cv_accuracy_sd": 0.0048,
+        "cv_macro_f1": 0.0424,
+        "cv_macro_f1_sd": 0.0012
+      },
+      {
+        "model": "Baseline (most frequent)",
+        "ngram": "1-2",
+        "cv_accuracy": 0.1456,
+        "cv_accuracy_sd": 0.0048,
+        "cv_macro_f1": 0.0424,
+        "cv_macro_f1_sd": 0.0012
+      }
+    ],
+    "variation_ngram": [
+      {
+        "model": "Baseline (most frequent)",
+        "mean_macro_f1_gain_of_bigrams": 0.0,
+        "sd": 0.0,
+        "folds_bigram_better": 0,
+        "folds_unigram_better": 0,
+        "n_folds": 20
+      },
+      {
+        "model": "Multinomial NB",
+        "mean_macro_f1_gain_of_bigrams": -0.017956349206349215,
+        "sd": 0.03738863429138401,
+        "folds_bigram_better": 0,
+        "folds_unigram_better": 4,
+        "n_folds": 20
+      },
+      {
+        "model": "Complement NB",
+        "mean_macro_f1_gain_of_bigrams": -0.016845238095238097,
+        "sd": 0.052579960314091054,
+        "folds_bigram_better": 2,
+        "folds_unigram_better": 6,
+        "n_folds": 20
+      },
+      {
+        "model": "Logistic Regression",
+        "mean_macro_f1_gain_of_bigrams": -0.025138888888888884,
+        "sd": 0.05258352409427156,
+        "folds_bigram_better": 1,
+        "folds_unigram_better": 6,
+        "n_folds": 20
+      },
+      {
+        "model": "Linear SVM",
+        "mean_macro_f1_gain_of_bigrams": -0.007440476190476197,
+        "sd": 0.03472684209628551,
+        "folds_bigram_better": 1,
+        "folds_unigram_better": 3,
+        "n_folds": 20
+      },
+      {
+        "model": "kNN (cosine, k=5)",
+        "mean_macro_f1_gain_of_bigrams": 0.005892857142857149,
+        "sd": 0.01790262066097061,
+        "folds_bigram_better": 3,
+        "folds_unigram_better": 0,
+        "n_folds": 20
+      }
+    ],
+    "holdout": {
+      "model": "Linear SVM",
+      "ngram": "1-1",
+      "n_train": 55,
+      "n_test": 14,
+      "accuracy": 0.8571428571428571,
+      "macro_f1": 0.8472222222222222,
+      "labels": [
+        "Crafts & Textiles",
+        "Cuisine & Foodways",
+        "Festivals & Rituals",
+        "Monuments & Architecture",
+        "Music & Dance",
+        "Natural & Sacred Landscapes"
+      ],
+      "confusion_matrix": [
+        [
+          2,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ]
+      ],
+      "errors": [
+        {
+          "title": "Chaat Street Food",
+          "true": "Cuisine & Foodways",
+          "predicted": "Festivals & Rituals"
+        },
+        {
+          "title": "Varanasi Ghats",
+          "true": "Natural & Sacred Landscapes",
+          "predicted": "Festivals & Rituals"
+        }
+      ]
+    }
+  },
+  "clustering": {
+    "k_sweep": [
+      {
+        "k": 2,
+        "silhouette": 0.005578763852456874,
+        "inertia": 65.53820985206485
+      },
+      {
+        "k": 3,
+        "silhouette": 0.00563006852172708,
+        "inertia": 64.26398460337856
+      },
+      {
+        "k": 4,
+        "silhouette": 0.006702294908983566,
+        "inertia": 62.96091249247326
+      },
+      {
+        "k": 5,
+        "silhouette": 0.007986575157350378,
+        "inertia": 61.654106698496136
+      },
+      {
+        "k": 6,
+        "silhouette": 0.006632527628959393,
+        "inertia": 60.57474137132415
+      },
+      {
+        "k": 7,
+        "silhouette": 0.00979635757363435,
+        "inertia": 59.23658871203381
+      },
+      {
+        "k": 8,
+        "silhouette": 0.0116577412837729,
+        "inertia": 57.87334673016204
+      },
+      {
+        "k": 9,
+        "silhouette": 0.012202046720014235,
+        "inertia": 56.746634027647566
+      },
+      {
+        "k": 10,
+        "silhouette": 0.015473665758782588,
+        "inertia": 55.37836596015508
+      }
+    ],
+    "k_used": 6,
+    "ARI": 0.2991346193180339,
+    "NMI": 0.4691323686423773,
+    "purity": 0.6231884057971014,
+    "clusters": [
+      {
+        "cluster": 0,
+        "size": 22,
+        "top_terms": [
+          "wall",
+          "ston",
+          "paint",
+          "tower",
+          "templ",
+          "stand",
+          "cover",
+          "marbl"
+        ],
+        "majority_category": "Monuments & Architecture",
+        "purity": 0.5454545454545454,
+        "titles": [
+          "Konark Sun Temple",
+          "Qutb Minar",
+          "Hampi Group of Monuments",
+          "Red Fort",
+          "Meenakshi Amman Temple",
+          "Sanchi Stupa",
+          "Taj Mahal",
+          "Golden Temple Amritsar",
+          "Charminar",
+          "Madhubani Painting",
+          "Pattachitra",
+          "Dhokra Metal Casting",
+          "Kathakali",
+          "Baul Songs",
+          "South Indian Filter Coffee",
+          "Valley of Flowers",
+          "Varanasi Ghats",
+          "Kaziranga National Park",
+          "Jallianwala Garden Memorial",
+          "Bhitarkanika Mangroves",
+          "Khajuraho Temples",
+          "Mehrangarh Fort"
+        ]
+      },
+      {
+        "cluster": 1,
+        "size": 12,
+        "top_terms": [
+          "pattern",
+          "festival",
+          "draw",
+          "design",
+          "women",
+          "colour",
+          "clay",
+          "rice"
+        ],
+        "majority_category": "Crafts & Textiles",
+        "purity": 0.4166666666666667,
+        "titles": [
+          "Diwali",
+          "Pongal",
+          "Bidriware",
+          "Block Printing of Sanganer",
+          "Blue Pottery of Jaipur",
+          "Ghoomar",
+          "Bengali Sweets",
+          "Goan Fish Curry",
+          "Ganga Aarti at Haridwar",
+          "Toda Embroidery",
+          "Tanjore Painting",
+          "Kolam Rangoli"
+        ]
+      },
+      {
+        "cluster": 2,
+        "size": 7,
+        "top_terms": [
+          "dish",
+          "spic",
+          "cook",
+          "meat",
+          "flavour",
+          "diner",
+          "seal",
+          "ghee"
+        ],
+        "majority_category": "Cuisine & Foodways",
+        "purity": 0.8571428571428571,
+        "titles": [
+          "Eid-ul-Fitr",
+          "Hyderabadi Biryani",
+          "Kerala Sadya",
+          "Rajasthani Dal Baati Churma",
+          "Awadhi Kebabs",
+          "Kashmiri Wazwan",
+          "Chaat Street Food"
+        ]
+      },
+      {
+        "cluster": 3,
+        "size": 9,
+        "top_terms": [
+          "classical",
+          "music",
+          "danc",
+          "rhythm",
+          "gestur",
+          "templ",
+          "hand",
+          "sung"
+        ],
+        "majority_category": "Music & Dance",
+        "purity": 0.8888888888888888,
+        "titles": [
+          "Bharatanatyam",
+          "Kathak",
+          "Hindustani Classical Raga",
+          "Carnatic Music",
+          "Odissi",
+          "Qawwali",
+          "Lonar Crater Lake",
+          "Dandiya Raas",
+          "Rabindra Sangeet"
+        ]
+      },
+      {
+        "cluster": 4,
+        "size": 15,
+        "top_terms": [
+          "community",
+          "day",
+          "forest",
+          "danc",
+          "prayer",
+          "procession",
+          "goddess",
+          "devot"
+        ],
+        "majority_category": "Festivals & Rituals",
+        "purity": 0.5333333333333333,
+        "titles": [
+          "Ajanta Caves",
+          "Holi",
+          "Durga Puja",
+          "Onam",
+          "Kumbh Mela",
+          "Rath Yatra",
+          "Baisakhi",
+          "Navaratri Garba",
+          "Bhangra",
+          "Punjabi Langar",
+          "Sundarbans",
+          "Western Ghats",
+          "Sacred Groves of Meghalaya",
+          "Rann of Kutch",
+          "Mysore Dasara"
+        ]
+      },
+      {
+        "cluster": 5,
+        "size": 4,
+        "top_terms": [
+          "silk",
+          "woven",
+          "sare",
+          "zari",
+          "loom",
+          "embroidery",
+          "motif",
+          "artisan"
+        ],
+        "majority_category": "Crafts & Textiles",
+        "purity": 1.0,
+        "titles": [
+          "Banarasi Silk Weaving",
+          "Pashmina Shawls",
+          "Chikankari Embroidery",
+          "Kanchipuram Sarees"
+        ]
+      }
+    ]
+  },
+  "retrieval": {
+    "table": [
+      {
+        "config": "ngram=1-1, stem=False, title=False",
+        "split": "dev",
+        "P@5": 0.6444,
+        "MRR": 1.0,
+        "nDCG@10": 0.5379
+      },
+      {
+        "config": "ngram=1-1, stem=False, title=False",
+        "split": "test",
+        "P@5": 0.4333,
+        "MRR": 0.9167,
+        "nDCG@10": 0.3744
+      },
+      {
+        "config": "ngram=1-1, stem=False, title=True",
+        "split": "dev",
+        "P@5": 0.6556,
+        "MRR": 1.0,
+        "nDCG@10": 0.5443
+      },
+      {
+        "config": "ngram=1-1, stem=False, title=True",
+        "split": "test",
+        "P@5": 0.45,
+        "MRR": 0.9167,
+        "nDCG@10": 0.3843
+      },
+      {
+        "config": "ngram=1-1, stem=True, title=False",
+        "split": "dev",
+        "P@5": 0.6667,
+        "MRR": 1.0,
+        "nDCG@10": 0.5657
+      },
+      {
+        "config": "ngram=1-1, stem=True, title=False",
+        "split": "test",
+        "P@5": 0.5333,
+        "MRR": 0.9167,
+        "nDCG@10": 0.4409
+      },
+      {
+        "config": "ngram=1-1, stem=True, title=True",
+        "split": "dev",
+        "P@5": 0.6889,
+        "MRR": 1.0,
+        "nDCG@10": 0.5672
+      },
+      {
+        "config": "ngram=1-1, stem=True, title=True",
+        "split": "test",
+        "P@5": 0.55,
+        "MRR": 0.9167,
+        "nDCG@10": 0.4505
+      },
+      {
+        "config": "ngram=1-2, stem=False, title=False",
+        "split": "dev",
+        "P@5": 0.6556,
+        "MRR": 1.0,
+        "nDCG@10": 0.5382
+      },
+      {
+        "config": "ngram=1-2, stem=False, title=False",
+        "split": "test",
+        "P@5": 0.4333,
+        "MRR": 0.9167,
+        "nDCG@10": 0.3744
+      },
+      {
+        "config": "ngram=1-2, stem=False, title=True",
+        "split": "dev",
+        "P@5": 0.6667,
+        "MRR": 1.0,
+        "nDCG@10": 0.548
+      },
+      {
+        "config": "ngram=1-2, stem=False, title=True",
+        "split": "test",
+        "P@5": 0.45,
+        "MRR": 0.9167,
+        "nDCG@10": 0.3843
+      },
+      {
+        "config": "ngram=1-2, stem=True, title=False",
+        "split": "dev",
+        "P@5": 0.6778,
+        "MRR": 1.0,
+        "nDCG@10": 0.5665
+      },
+      {
+        "config": "ngram=1-2, stem=True, title=False",
+        "split": "test",
+        "P@5": 0.5333,
+        "MRR": 0.9167,
+        "nDCG@10": 0.4406
+      },
+      {
+        "config": "ngram=1-2, stem=True, title=True",
+        "split": "dev",
+        "P@5": 0.6778,
+        "MRR": 1.0,
+        "nDCG@10": 0.566
+      },
+      {
+        "config": "ngram=1-2, stem=True, title=True",
+        "split": "test",
+        "P@5": 0.55,
+        "MRR": 0.9167,
+        "nDCG@10": 0.45
+      }
+    ],
+    "selected_on_dev": "ngram=1-1, stem=True, title=True",
+    "keyword_overlap_baseline": [
+      {
+        "split": "dev",
+        "P@5": 0.6666666666666666,
+        "MRR": 1.0,
+        "nDCG@10": 0.5622937160233015
+      },
+      {
+        "split": "test",
+        "P@5": 0.55,
+        "MRR": 0.875,
+        "nDCG@10": 0.4349634530168913
+      }
+    ],
+    "per_query": [
+      {
+        "qid": 1,
+        "split": "dev",
+        "query": "ancient stone temple with carved sculptures",
+        "P@5": 0.8,
+        "MRR": 1.0,
+        "nDCG@10": 0.7702
+      },
+      {
+        "qid": 2,
+        "split": "dev",
+        "query": "red sandstone fort and palace",
+        "P@5": 0.8,
+        "MRR": 1.0,
+        "nDCG@10": 0.6275
+      },
+      {
+        "qid": 3,
+        "split": "dev",
+        "query": "festival of lights and sweets",
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "nDCG@10": 0.4577
+      },
+      {
+        "qid": 4,
+        "split": "dev",
+        "query": "harvest celebration with rice and cattle",
+        "P@5": 0.8,
+        "MRR": 1.0,
+        "nDCG@10": 0.6236
+      },
+      {
+        "qid": 5,
+        "split": "dev",
+        "query": "handwoven silk saree with gold thread",
+        "P@5": 0.8,
+        "MRR": 1.0,
+        "nDCG@10": 0.6422
+      },
+      {
+        "qid": 6,
+        "split": "dev",
+        "query": "folk painting with natural pigments",
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "nDCG@10": 0.4226
+      },
+      {
+        "qid": 7,
+        "split": "dev",
+        "query": "classical dance with hand gestures and footwork",
+        "P@5": 1.0,
+        "MRR": 1.0,
+        "nDCG@10": 0.7846
+      },
+      {
+        "qid": 8,
+        "split": "dev",
+        "query": "devotional music with harmonium",
+        "P@5": 1.0,
+        "MRR": 1.0,
+        "nDCG@10": 0.7273
+      },
+      {
+        "qid": 9,
+        "split": "dev",
+        "query": "slow cooked rice and meat with spices",
+        "P@5": 1.0,
+        "MRR": 1.0,
+        "nDCG@10": 0.7273
+      },
+      {
+        "qid": 10,
+        "split": "dev",
+        "query": "street snacks with chutney",
+        "P@5": 0.2,
+        "MRR": 1.0,
+        "nDCG@10": 0.2201
+      },
+      {
+        "qid": 11,
+        "split": "dev",
+        "query": "mangrove forest and tigers",
+        "P@5": 1.0,
+        "MRR": 1.0,
+        "nDCG@10": 0.693
+      },
+      {
+        "qid": 12,
+        "split": "dev",
+        "query": "sacred forest protected by villagers",
+        "P@5": 0.8,
+        "MRR": 1.0,
+        "nDCG@10": 0.7176
+      },
+      {
+        "qid": 13,
+        "split": "dev",
+        "query": "metal casting lost wax",
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "nDCG@10": 0.3149
+      },
+      {
+        "qid": 14,
+        "split": "dev",
+        "query": "pilgrims bathing in the river",
+        "P@5": 0.8,
+        "MRR": 1.0,
+        "nDCG@10": 0.6372
+      },
+      {
+        "qid": 15,
+        "split": "dev",
+        "query": "free community meal",
+        "P@5": 0.2,
+        "MRR": 1.0,
+        "nDCG@10": 0.2201
+      },
+      {
+        "qid": 16,
+        "split": "dev",
+        "query": "marble tomb with garden",
+        "P@5": 1.0,
+        "MRR": 1.0,
+        "nDCG@10": 0.6489
+      },
+      {
+        "qid": 17,
+        "split": "dev",
+        "query": "wildlife park rhinoceros",
+        "P@5": 0.6,
+        "MRR": 1.0,
+        "nDCG@10": 0.5009
+      },
+      {
+        "qid": 18,
+        "split": "dev",
+        "query": "women dance in circles",
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "nDCG@10": 0.4748
+      },
+      {
+        "qid": 19,
+        "split": "test",
+        "query": "procession with decorated elephants",
+        "P@5": 0.8,
+        "MRR": 1.0,
+        "nDCG@10": 0.5885
+      },
+      {
+        "qid": 20,
+        "split": "test",
+        "query": "inlay with silver on dark alloy",
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "nDCG@10": 0.359
+      },
+      {
+        "qid": 21,
+        "split": "test",
+        "query": "mystic wandering singers",
+        "P@5": 0.8,
+        "MRR": 1.0,
+        "nDCG@10": 0.5638
+      },
+      {
+        "qid": 22,
+        "split": "test",
+        "query": "royal banquet with saffron",
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "nDCG@10": 0.4374
+      },
+      {
+        "qid": 23,
+        "split": "test",
+        "query": "high himalayan meadow flowers",
+        "P@5": 0.2,
+        "MRR": 1.0,
+        "nDCG@10": 0.235
+      },
+      {
+        "qid": 24,
+        "split": "test",
+        "query": "buddhist rock cut monastery",
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "nDCG@10": 0.359
+      },
+      {
+        "qid": 25,
+        "split": "test",
+        "query": "embroidery with fine stitches on white cloth",
+        "P@5": 1.0,
+        "MRR": 1.0,
+        "nDCG@10": 0.7273
+      },
+      {
+        "qid": 26,
+        "split": "test",
+        "query": "memorial of a massacre",
+        "P@5": 0.2,
+        "MRR": 1.0,
+        "nDCG@10": 0.2201
+      },
+      {
+        "qid": 27,
+        "split": "test",
+        "query": "what to eat in the south",
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "nDCG@10": 0.3301
+      },
+      {
+        "qid": 28,
+        "split": "test",
+        "query": "places for birdwatching",
+        "P@5": 0.0,
+        "MRR": 0.0,
+        "nDCG@10": 0.0
+      },
+      {
+        "qid": 29,
+        "split": "test",
+        "query": "evening prayer with lamps by the river",
+        "P@5": 1.0,
+        "MRR": 1.0,
+        "nDCG@10": 0.9364
+      },
+      {
+        "qid": 30,
+        "split": "test",
+        "query": "drum rhythm and leaping",
+        "P@5": 1.0,
+        "MRR": 1.0,
+        "nDCG@10": 0.6489
+      }
+    ],
+    "failures": [
+      {
+        "qid": 3,
+        "query": "festival of lights and sweets",
+        "relevant": [
+          "Festivals & Rituals"
+        ],
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 5,
+        "top5": [
+          {
+            "title": "Diwali",
+            "category": "Festivals & Rituals",
+            "score": 0.326
+          },
+          {
+            "title": "Bengali Sweets",
+            "category": "Cuisine & Foodways",
+            "score": 0.223
+          },
+          {
+            "title": "Konark Sun Temple",
+            "category": "Monuments & Architecture",
+            "score": 0.125
+          },
+          {
+            "title": "Eid-ul-Fitr",
+            "category": "Festivals & Rituals",
+            "score": 0.1
+          },
+          {
+            "title": "Rajasthani Dal Baati Churma",
+            "category": "Cuisine & Foodways",
+            "score": 0.091
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Bengali Sweets",
+            "category": "Cuisine & Foodways",
+            "score": 0.223,
+            "matched_terms": [
+              "sweet"
+            ],
+            "top_term_category_spread": {
+              "Festivals & Rituals": 2,
+              "Cuisine & Foodways": 2
+            }
+          },
+          {
+            "title": "Konark Sun Temple",
+            "category": "Monuments & Architecture",
+            "score": 0.125,
+            "matched_terms": [
+              "light"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 1,
+              "Festivals & Rituals": 1
+            }
+          },
+          {
+            "title": "Rajasthani Dal Baati Churma",
+            "category": "Cuisine & Foodways",
+            "score": 0.091,
+            "matched_terms": [
+              "sweet"
+            ],
+            "top_term_category_spread": {
+              "Festivals & Rituals": 2,
+              "Cuisine & Foodways": 2
+            }
+          }
+        ]
+      },
+      {
+        "qid": 6,
+        "query": "folk painting with natural pigments",
+        "relevant": [
+          "Crafts & Textiles"
+        ],
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 5,
+        "top5": [
+          {
+            "title": "Madhubani Painting",
+            "category": "Crafts & Textiles",
+            "score": 0.454
+          },
+          {
+            "title": "Pattachitra",
+            "category": "Crafts & Textiles",
+            "score": 0.116
+          },
+          {
+            "title": "Bhangra",
+            "category": "Music & Dance",
+            "score": 0.074
+          },
+          {
+            "title": "Ghoomar",
+            "category": "Music & Dance",
+            "score": 0.074
+          },
+          {
+            "title": "Dandiya Raas",
+            "category": "Music & Dance",
+            "score": 0.071
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Bhangra",
+            "category": "Music & Dance",
+            "score": 0.074,
+            "matched_terms": [
+              "folk"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 1,
+              "Music & Dance": 5
+            }
+          },
+          {
+            "title": "Ghoomar",
+            "category": "Music & Dance",
+            "score": 0.074,
+            "matched_terms": [
+              "folk"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 1,
+              "Music & Dance": 5
+            }
+          },
+          {
+            "title": "Dandiya Raas",
+            "category": "Music & Dance",
+            "score": 0.071,
+            "matched_terms": [
+              "folk"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 1,
+              "Music & Dance": 5
+            }
+          }
+        ]
+      },
+      {
+        "qid": 10,
+        "query": "street snacks with chutney",
+        "relevant": [
+          "Cuisine & Foodways"
+        ],
+        "P@5": 0.2,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 2,
+        "top5": [
+          {
+            "title": "Chaat Street Food",
+            "category": "Cuisine & Foodways",
+            "score": 0.421
+          },
+          {
+            "title": "Rath Yatra",
+            "category": "Festivals & Rituals",
+            "score": 0.112
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Rath Yatra",
+            "category": "Festivals & Rituals",
+            "score": 0.112,
+            "matched_terms": [
+              "street"
+            ],
+            "top_term_category_spread": {
+              "Festivals & Rituals": 1,
+              "Cuisine & Foodways": 1
+            }
+          }
+        ]
+      },
+      {
+        "qid": 13,
+        "query": "metal casting lost wax",
+        "relevant": [
+          "Crafts & Textiles"
+        ],
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 5,
+        "top5": [
+          {
+            "title": "Dhokra Metal Casting",
+            "category": "Crafts & Textiles",
+            "score": 0.536
+          },
+          {
+            "title": "Sacred Groves of Meghalaya",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.105
+          },
+          {
+            "title": "Baul Songs",
+            "category": "Music & Dance",
+            "score": 0.105
+          },
+          {
+            "title": "Bidriware",
+            "category": "Crafts & Textiles",
+            "score": 0.088
+          },
+          {
+            "title": "South Indian Filter Coffee",
+            "category": "Cuisine & Foodways",
+            "score": 0.078
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Sacred Groves of Meghalaya",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.105,
+            "matched_terms": [
+              "lost"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 1,
+              "Natural & Sacred Landscapes": 1
+            }
+          },
+          {
+            "title": "Baul Songs",
+            "category": "Music & Dance",
+            "score": 0.105,
+            "matched_terms": [
+              "cast"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 1,
+              "Music & Dance": 1
+            }
+          },
+          {
+            "title": "South Indian Filter Coffee",
+            "category": "Cuisine & Foodways",
+            "score": 0.078,
+            "matched_terms": [
+              "metal"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 2,
+              "Cuisine & Foodways": 1
+            }
+          }
+        ]
+      },
+      {
+        "qid": 15,
+        "query": "free community meal",
+        "relevant": [
+          "Cuisine & Foodways"
+        ],
+        "P@5": 0.2,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 5,
+        "top5": [
+          {
+            "title": "Punjabi Langar",
+            "category": "Cuisine & Foodways",
+            "score": 0.361
+          },
+          {
+            "title": "Baisakhi",
+            "category": "Festivals & Rituals",
+            "score": 0.214
+          },
+          {
+            "title": "Navaratri Garba",
+            "category": "Festivals & Rituals",
+            "score": 0.07
+          },
+          {
+            "title": "Sundarbans",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.066
+          },
+          {
+            "title": "Golden Temple Amritsar",
+            "category": "Monuments & Architecture",
+            "score": 0.065
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Baisakhi",
+            "category": "Festivals & Rituals",
+            "score": 0.214,
+            "matched_terms": [
+              "meal",
+              "community"
+            ],
+            "top_term_category_spread": {
+              "Festivals & Rituals": 1,
+              "Cuisine & Foodways": 1
+            }
+          },
+          {
+            "title": "Navaratri Garba",
+            "category": "Festivals & Rituals",
+            "score": 0.07,
+            "matched_terms": [
+              "community"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 1,
+              "Festivals & Rituals": 4,
+              "Cuisine & Foodways": 1,
+              "Natural & Sacred Landscapes": 3
+            }
+          },
+          {
+            "title": "Sundarbans",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.066,
+            "matched_terms": [
+              "community"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 1,
+              "Festivals & Rituals": 4,
+              "Cuisine & Foodways": 1,
+              "Natural & Sacred Landscapes": 3
+            }
+          },
+          {
+            "title": "Golden Temple Amritsar",
+            "category": "Monuments & Architecture",
+            "score": 0.065,
+            "matched_terms": [
+              "community"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 1,
+              "Festivals & Rituals": 4,
+              "Cuisine & Foodways": 1,
+              "Natural & Sacred Landscapes": 3
+            }
+          }
+        ]
+      },
+      {
+        "qid": 17,
+        "query": "wildlife park rhinoceros",
+        "relevant": [
+          "Natural & Sacred Landscapes"
+        ],
+        "P@5": 0.6,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 3,
+        "top5": [
+          {
+            "title": "Kaziranga National Park",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.345
+          },
+          {
+            "title": "Valley of Flowers",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.22
+          },
+          {
+            "title": "Sundarbans",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.12
+          }
+        ],
+        "wrong_hits": []
+      },
+      {
+        "qid": 18,
+        "query": "women dance in circles",
+        "relevant": [
+          "Music & Dance"
+        ],
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 5,
+        "top5": [
+          {
+            "title": "Ghoomar",
+            "category": "Music & Dance",
+            "score": 0.321
+          },
+          {
+            "title": "Navaratri Garba",
+            "category": "Festivals & Rituals",
+            "score": 0.207
+          },
+          {
+            "title": "Dandiya Raas",
+            "category": "Music & Dance",
+            "score": 0.196
+          },
+          {
+            "title": "Kolam Rangoli",
+            "category": "Festivals & Rituals",
+            "score": 0.117
+          },
+          {
+            "title": "Toda Embroidery",
+            "category": "Crafts & Textiles",
+            "score": 0.117
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Navaratri Garba",
+            "category": "Festivals & Rituals",
+            "score": 0.207,
+            "matched_terms": [
+              "circl",
+              "danc"
+            ],
+            "top_term_category_spread": {
+              "Festivals & Rituals": 1,
+              "Music & Dance": 2
+            }
+          },
+          {
+            "title": "Kolam Rangoli",
+            "category": "Festivals & Rituals",
+            "score": 0.117,
+            "matched_terms": [
+              "women"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 2,
+              "Music & Dance": 1,
+              "Festivals & Rituals": 1
+            }
+          },
+          {
+            "title": "Toda Embroidery",
+            "category": "Crafts & Textiles",
+            "score": 0.117,
+            "matched_terms": [
+              "women"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 2,
+              "Music & Dance": 1,
+              "Festivals & Rituals": 1
+            }
+          }
+        ]
+      },
+      {
+        "qid": 20,
+        "query": "inlay with silver on dark alloy",
+        "relevant": [
+          "Crafts & Textiles"
+        ],
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "oov_terms": [
+          "inlay",
+          "dark"
+        ],
+        "n_results_with_any_evidence": 2,
+        "top5": [
+          {
+            "title": "Bidriware",
+            "category": "Crafts & Textiles",
+            "score": 0.303
+          },
+          {
+            "title": "Banarasi Silk Weaving",
+            "category": "Crafts & Textiles",
+            "score": 0.126
+          }
+        ],
+        "wrong_hits": []
+      },
+      {
+        "qid": 22,
+        "query": "royal banquet with saffron",
+        "relevant": [
+          "Cuisine & Foodways"
+        ],
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 5,
+        "top5": [
+          {
+            "title": "Kashmiri Wazwan",
+            "category": "Cuisine & Foodways",
+            "score": 0.237
+          },
+          {
+            "title": "Hyderabadi Biryani",
+            "category": "Cuisine & Foodways",
+            "score": 0.113
+          },
+          {
+            "title": "Mehrangarh Fort",
+            "category": "Monuments & Architecture",
+            "score": 0.09
+          },
+          {
+            "title": "Mysore Dasara",
+            "category": "Festivals & Rituals",
+            "score": 0.084
+          },
+          {
+            "title": "Kathak",
+            "category": "Music & Dance",
+            "score": 0.083
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Mehrangarh Fort",
+            "category": "Monuments & Architecture",
+            "score": 0.09,
+            "matched_terms": [
+              "royal"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 2,
+              "Music & Dance": 1,
+              "Cuisine & Foodways": 1,
+              "Festivals & Rituals": 1
+            }
+          },
+          {
+            "title": "Mysore Dasara",
+            "category": "Festivals & Rituals",
+            "score": 0.084,
+            "matched_terms": [
+              "royal"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 2,
+              "Music & Dance": 1,
+              "Cuisine & Foodways": 1,
+              "Festivals & Rituals": 1
+            }
+          },
+          {
+            "title": "Kathak",
+            "category": "Music & Dance",
+            "score": 0.083,
+            "matched_terms": [
+              "royal"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 2,
+              "Music & Dance": 1,
+              "Cuisine & Foodways": 1,
+              "Festivals & Rituals": 1
+            }
+          }
+        ]
+      },
+      {
+        "qid": 23,
+        "query": "high himalayan meadow flowers",
+        "relevant": [
+          "Natural & Sacred Landscapes"
+        ],
+        "P@5": 0.2,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 5,
+        "top5": [
+          {
+            "title": "Valley of Flowers",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.493
+          },
+          {
+            "title": "Khajuraho Temples",
+            "category": "Monuments & Architecture",
+            "score": 0.094
+          },
+          {
+            "title": "Madhubani Painting",
+            "category": "Crafts & Textiles",
+            "score": 0.085
+          },
+          {
+            "title": "Ganga Aarti at Haridwar",
+            "category": "Festivals & Rituals",
+            "score": 0.084
+          },
+          {
+            "title": "Red Fort",
+            "category": "Monuments & Architecture",
+            "score": 0.08
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Khajuraho Temples",
+            "category": "Monuments & Architecture",
+            "score": 0.094,
+            "matched_terms": [
+              "high"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 2,
+              "Natural & Sacred Landscapes": 1
+            }
+          },
+          {
+            "title": "Madhubani Painting",
+            "category": "Crafts & Textiles",
+            "score": 0.085,
+            "matched_terms": [
+              "flower"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 1,
+              "Natural & Sacred Landscapes": 1,
+              "Festivals & Rituals": 1
+            }
+          },
+          {
+            "title": "Ganga Aarti at Haridwar",
+            "category": "Festivals & Rituals",
+            "score": 0.084,
+            "matched_terms": [
+              "flower"
+            ],
+            "top_term_category_spread": {
+              "Crafts & Textiles": 1,
+              "Natural & Sacred Landscapes": 1,
+              "Festivals & Rituals": 1
+            }
+          },
+          {
+            "title": "Red Fort",
+            "category": "Monuments & Architecture",
+            "score": 0.08,
+            "matched_terms": [
+              "high"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 2,
+              "Natural & Sacred Landscapes": 1
+            }
+          }
+        ]
+      },
+      {
+        "qid": 24,
+        "query": "buddhist rock cut monastery",
+        "relevant": [
+          "Monuments & Architecture"
+        ],
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 3,
+        "top5": [
+          {
+            "title": "Ajanta Caves",
+            "category": "Monuments & Architecture",
+            "score": 0.404
+          },
+          {
+            "title": "Sanchi Stupa",
+            "category": "Monuments & Architecture",
+            "score": 0.097
+          },
+          {
+            "title": "Lonar Crater Lake",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.093
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Lonar Crater Lake",
+            "category": "Natural & Sacred Landscapes",
+            "score": 0.093,
+            "matched_terms": [
+              "rock"
+            ],
+            "top_term_category_spread": {
+              "Monuments & Architecture": 1,
+              "Natural & Sacred Landscapes": 1
+            }
+          }
+        ]
+      },
+      {
+        "qid": 26,
+        "query": "memorial of a massacre",
+        "relevant": [
+          "Monuments & Architecture"
+        ],
+        "P@5": 0.2,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 1,
+        "top5": [
+          {
+            "title": "Jallianwala Garden Memorial",
+            "category": "Monuments & Architecture",
+            "score": 0.449
+          }
+        ],
+        "wrong_hits": []
+      },
+      {
+        "qid": 27,
+        "query": "what to eat in the south",
+        "relevant": [
+          "Cuisine & Foodways"
+        ],
+        "P@5": 0.4,
+        "MRR": 1.0,
+        "oov_terms": [],
+        "n_results_with_any_evidence": 3,
+        "top5": [
+          {
+            "title": "Kerala Sadya",
+            "category": "Cuisine & Foodways",
+            "score": 0.17
+          },
+          {
+            "title": "Carnatic Music",
+            "category": "Music & Dance",
+            "score": 0.139
+          },
+          {
+            "title": "South Indian Filter Coffee",
+            "category": "Cuisine & Foodways",
+            "score": 0.123
+          }
+        ],
+        "wrong_hits": [
+          {
+            "title": "Carnatic Music",
+            "category": "Music & Dance",
+            "score": 0.139,
+            "matched_terms": [
+              "south"
+            ],
+            "top_term_category_spread": {
+              "Music & Dance": 1,
+              "Cuisine & Foodways": 1
+            }
+          }
+        ]
+      },
+      {
+        "qid": 28,
+        "query": "places for birdwatching",
+        "relevant": [
+          "Natural & Sacred Landscapes"
+        ],
+        "P@5": 0.0,
+        "MRR": 0.0,
+        "oov_terms": [
+          "plac",
+          "birdwatch"
+        ],
+        "n_results_with_any_evidence": 0,
+        "top5": [],
+        "wrong_hits": []
+      }
+    ]
+  },
+  "n_queries": {
+    "dev": 18,
+    "test": 12
+  }
+}
