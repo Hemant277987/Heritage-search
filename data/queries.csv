@@ -1,0 +1,31 @@
+qid,split,query,relevant_categories
+1,dev,ancient stone temple with carved sculptures,Monuments & Architecture
+2,dev,red sandstone fort and palace,Monuments & Architecture
+3,dev,festival of lights and sweets,Festivals & Rituals
+4,dev,harvest celebration with rice and cattle,Festivals & Rituals
+5,dev,handwoven silk saree with gold thread,Crafts & Textiles
+6,dev,folk painting with natural pigments,Crafts & Textiles
+7,dev,classical dance with hand gestures and footwork,Music & Dance
+8,dev,devotional music with harmonium,Music & Dance
+9,dev,slow cooked rice and meat with spices,Cuisine & Foodways
+10,dev,street snacks with chutney,Cuisine & Foodways
+11,dev,mangrove forest and tigers,Natural & Sacred Landscapes
+12,dev,sacred forest protected by villagers,Natural & Sacred Landscapes
+13,dev,metal casting lost wax,Crafts & Textiles
+14,dev,pilgrims bathing in the river,Festivals & Rituals|Natural & Sacred Landscapes
+15,dev,free community meal,Cuisine & Foodways
+16,dev,marble tomb with garden,Monuments & Architecture
+17,dev,wildlife park rhinoceros,Natural & Sacred Landscapes
+18,dev,women dance in circles,Music & Dance
+19,test,procession with decorated elephants,Festivals & Rituals
+20,test,inlay with silver on dark alloy,Crafts & Textiles
+21,test,mystic wandering singers,Music & Dance
+22,test,royal banquet with saffron,Cuisine & Foodways
+23,test,high himalayan meadow flowers,Natural & Sacred Landscapes
+24,test,buddhist rock cut monastery,Monuments & Architecture
+25,test,embroidery with fine stitches on white cloth,Crafts & Textiles
+26,test,memorial of a massacre,Monuments & Architecture
+27,test,what to eat in the south,Cuisine & Foodways
+28,test,places for birdwatching,Natural & Sacred Landscapes
+29,test,evening prayer with lamps by the river,Festivals & Rituals|Natural & Sacred Landscapes
+30,test,drum rhythm and leaping,Music & Dance
